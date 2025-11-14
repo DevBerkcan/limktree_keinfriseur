@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { hasConsent, oneTrustConfig } from "@/lib/config";
 
 /**
  * Analytics event payload structure
@@ -98,7 +99,7 @@ const getDeviceInfo = () => {
 };
 
 /**
- * Main analytics hook
+ * Main analytics hook mit OneTrust Integration
  *
  * Usage:
  * ```tsx
@@ -107,17 +108,51 @@ const getDeviceInfo = () => {
  * // Track a custom event
  * trackEvent("button_click", { buttonName: "Instagram" });
  * ```
+ *
+ * WICHTIG: Analytics wird nur getrackt wenn User Consent gegeben hat!
  */
 export const useAnalytics = () => {
   const pageLoadTime = useRef<number>(Date.now());
+  const [hasAnalyticsConsent, setHasAnalyticsConsent] = useState(false);
+
+  /**
+   * Prüfe OneTrust Consent Status
+   */
+  useEffect(() => {
+    const checkConsent = () => {
+      const consent = hasConsent(oneTrustConfig.categories.performance);
+      setHasAnalyticsConsent(consent);
+    };
+
+    // Initial check
+    checkConsent();
+
+    // Listen for consent changes
+    if (typeof window !== "undefined") {
+      window.addEventListener("onetrust-consent-updated", checkConsent);
+
+      return () => {
+        window.removeEventListener("onetrust-consent-updated", checkConsent);
+      };
+    }
+  }, []);
 
   /**
    * Send an analytics event to the backend
+   * WICHTIG: Nur wenn User Consent gegeben hat!
    */
   const trackEvent = async (
     eventName: string,
     data?: Record<string, any>
   ): Promise<void> => {
+    // Prüfe Consent vor dem Tracking
+    if (!hasAnalyticsConsent) {
+      console.log(
+        `Analytics blocked: User has not consented to performance cookies (Event: ${eventName})`
+      );
+      return;
+    }
+
     try {
       const payload: AnalyticsEvent = {
         eventName,

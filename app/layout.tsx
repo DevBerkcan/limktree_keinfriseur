@@ -1,36 +1,39 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { HeroUIProvider } from "@heroui/react";
+import { NextUIProvider } from "@nextui-org/react";
+import { OneTrust } from "@/components/OneTrust";
+import { oneTrustConfig } from "@/lib/config";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "KEINFRISEUR. – Link in Bio",
+  title: "Barber Dario – Link in Bio | Premium Barbershop Düsseldorf",
   description:
-    "Dein Barber & Hairstylist in Düsseldorf – moderne Cuts, Fades & Bartpflege. Jetzt online buchen!",
+    "Premium Barbershop in Düsseldorf – moderne Cuts, Fades & Bartpflege bei Barber Dario. Jetzt online Termin buchen!",
   keywords: [
-    "Barber",
-    "Friseur",
-    "Düsseldorf",
-    "Hairstylist",
-    "Fade",
+    "Barber Dario",
+    "Barbershop Düsseldorf",
+    "Barber Düsseldorf",
+    "Friseur Düsseldorf",
+    "Fade Haircut",
     "Bartpflege",
     "Herrenfriseur",
+    "Berliner Allee",
   ],
   openGraph: {
-    title: "KEINFRISEUR. – Link in Bio",
+    title: "Barber Dario – Premium Barbershop Düsseldorf",
     description:
-      "Dein Barber & Hairstylist in Düsseldorf – moderne Cuts, Fades & Bartpflege.",
+      "Premium Barbershop in Düsseldorf – moderne Cuts, Fades & Bartpflege. Jetzt online buchen!",
     type: "website",
     locale: "de_DE",
-    siteName: "KEINFRISEUR.",
+    siteName: "Barber Dario",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KEINFRISEUR. – Link in Bio",
+    title: "Barber Dario – Premium Barbershop Düsseldorf",
     description:
-      "Dein Barber & Hairstylist in Düsseldorf – moderne Cuts, Fades & Bartpflege.",
+      "Premium Barbershop in Düsseldorf – moderne Cuts, Fades & Bartpflege. Online buchen!",
   },
   viewport: {
     width: "device-width",
@@ -49,8 +52,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
+      <head>
+        {/* OneTrust Cookie Consent */}
+        <OneTrust domainId={oneTrustConfig.domainId} />
+      </head>
       <body className={inter.className}>
-        <HeroUIProvider>{children}</HeroUIProvider>
+        <NextUIProvider>{children}</NextUIProvider>
       </body>
     </html>
   );

@@ -3,59 +3,10 @@
 import { ProfileCard } from "@/components/ProfileCard";
 import { LinkButton } from "@/components/LinkButton";
 import { Footer } from "@/components/Footer";
-import { CookieBanner } from "@/components/CookieBanner";
+import { AnimatedScissorsDecor } from "@/components/FloatingScissors";
+import { ShareButton } from "@/components/ShareButton";
 import { useAnalytics } from "@/hooks/useAnalytics";
-import {
-  Calendar,
-  Instagram,
-  Phone,
-  MapPin,
-  MessageCircle,
-  Video,
-} from "lucide-react";
-
-/**
- * Link configuration
- * This can be moved to a separate config file or fetched from a CMS
- */
-const links = [
-  {
-    label: "Online buchen",
-    href: "https://deine-buchung.de",
-    icon: Calendar,
-    variant: "primary" as const,
-  },
-  {
-    label: "Instagram",
-    href: "https://instagram.com/keinfraiseur",
-    icon: Instagram,
-    variant: "secondary" as const,
-  },
-  {
-    label: "TikTok",
-    href: "https://tiktok.com/@keinfraiseur",
-    icon: Video,
-    variant: "secondary" as const,
-  },
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/49123456789",
-    icon: MessageCircle,
-    variant: "secondary" as const,
-  },
-  {
-    label: "Anrufen",
-    href: "tel:+49123456789",
-    icon: Phone,
-    variant: "secondary" as const,
-  },
-  {
-    label: "Adresse in Google Maps öffnen",
-    href: "https://maps.google.com/?q=Düsseldorf+Barber",
-    icon: MapPin,
-    variant: "secondary" as const,
-  },
-];
+import { socialLinks } from "@/lib/config";
 
 export default function Home() {
   // Initialize analytics (tracks page view and time on page)
@@ -65,6 +16,12 @@ export default function Home() {
     <div className="relative min-h-screen bg-barber-stripes">
       {/* Background gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-barber-cream via-barber-grey-50 to-barber-white" />
+
+      {/* Animierte schwebende Scheren */}
+      <AnimatedScissorsDecor />
+
+      {/* Floating Share Button */}
+      <ShareButton variant="floating" />
 
       {/* Main content */}
       <main className="relative flex min-h-screen items-center justify-center px-4 py-12">
@@ -77,7 +34,7 @@ export default function Home() {
 
             {/* Links section */}
             <div className="space-y-3">
-              {links.map((link, index) => (
+              {socialLinks.map((link, index) => (
                 <LinkButton
                   key={link.label}
                   href={link.href}
@@ -98,9 +55,6 @@ export default function Home() {
           <div className="pointer-events-none absolute -bottom-20 right-0 h-60 w-60 rounded-full bg-barber-gold/20 blur-3xl" />
         </div>
       </main>
-
-      {/* Cookie consent banner */}
-      <CookieBanner />
     </div>
   );
 }

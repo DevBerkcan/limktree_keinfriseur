@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Mail } from "lucide-react";
+import { OneTrustSettingsButton } from "./OneTrust";
 
 export const Footer = () => {
   const socialLinks = [
@@ -65,6 +66,8 @@ export const Footer = () => {
         >
           Datenschutz
         </a>
+        <span className="text-barber-grey-300">•</span>
+        <OneTrustSettingsButton />
       </div>
 
       {/* Copyright */}

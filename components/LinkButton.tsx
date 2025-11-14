@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Scissors } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { useState } from "react";
 
 interface LinkButtonProps {
   href: string;
@@ -20,6 +21,7 @@ export const LinkButton = ({
   variant = "primary",
 }: LinkButtonProps) => {
   const { trackEvent } = useAnalytics();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     trackEvent("link_click", {
@@ -37,6 +39,8 @@ export const LinkButton = ({
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -115,6 +119,22 @@ export const LinkButton = ({
           transition: { duration: 0.6 },
         }}
       />
+
+      {/* Scissors hover effect */}
+      {isHovered && (
+        <motion.div
+          initial={{ x: -20, y: -10, opacity: 0, rotate: -45 }}
+          animate={{ x: 5, y: -5, opacity: 0.3, rotate: -30 }}
+          exit={{ x: 20, y: 0, opacity: 0, rotate: -15 }}
+          transition={{ duration: 0.3 }}
+          className="absolute left-2 top-2 pointer-events-none"
+        >
+          <Scissors
+            size={16}
+            className={isPrimary ? "text-barber-white" : "text-barber-red"}
+          />
+        </motion.div>
+      )}
     </motion.a>
   );
 };
