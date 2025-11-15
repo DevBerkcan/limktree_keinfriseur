@@ -60,16 +60,11 @@ git push -u origin main
 
 #### Environment Variables
 
-**WICHTIG:** Füge die OneTrust Domain ID hinzu:
+**KEINE Environment Variables nötig!** ✅
 
-1. Scrolle zu **"Environment Variables"**
-2. Klicke auf **"Add"**
-3. Füge hinzu:
-   ```
-   Key: NEXT_PUBLIC_ONETRUST_DOMAIN_ID
-   Value: deine-onetrust-domain-id
-   ```
-4. Wähle: **Production, Preview, Development** (alle)
+- Klaro Cookie Consent ist bereits integriert (Open Source, kostenlos)
+- Keine Registrierung oder API-Keys erforderlich
+- DSGVO-konform out-of-the-box
 
 ### 5. Deploy starten
 
@@ -161,16 +156,19 @@ Teile deine neue URL:
 
 Wenn du detaillierte Analytics willst:
 
-1. **OneTrust** (bereits integriert)
-   - Setup siehe [ONETRUST_SETUP.md](ONETRUST_SETUP.md)
+1. **Klaro Cookie Consent** (bereits integriert) ✅
+   - Open Source & DSGVO-konform
+   - Keine Konfiguration nötig
 
 2. **Google Analytics** hinzufügen:
    - In `app/layout.tsx` Google Analytics Script einfügen
-   - In Vercel Environment Variables `GA_MEASUREMENT_ID` setzen
+   - In Vercel Environment Variables `NEXT_PUBLIC_GA_MEASUREMENT_ID` setzen
+   - Klaro fragt automatisch nach User-Consent
 
 3. **Vercel Analytics** (empfohlen):
    - Im Vercel Dashboard: **"Analytics"** aktivieren
    - Kostenlos für 100k Pageviews/Monat
+   - Keine Cookies nötig (Privacy-friendly)
 
 ## 🔄 Updates deployen
 
@@ -204,14 +202,14 @@ npm run build
 # Dann committen & pushen
 ```
 
-### Environment Variables fehlen
+### Cookie Consent funktioniert nicht
 
-**Problem**: OneTrust funktioniert nicht
+**Problem**: Klaro Cookie Banner erscheint nicht
 
 **Lösung**:
-1. Vercel Dashboard → Settings → Environment Variables
-2. `NEXT_PUBLIC_ONETRUST_DOMAIN_ID` hinzufügen
-3. Redeploy triggern: Deployments → ... → "Redeploy"
+1. Browser-Cache leeren (Cmd+Shift+R / Ctrl+Shift+R)
+2. Prüfe Browser-Konsole auf Fehler
+3. Klaro lädt via CDN - prüfe Netzwerk-Tab im Browser
 
 ### Domain funktioniert nicht
 
