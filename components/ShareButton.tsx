@@ -2,7 +2,19 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Share2, Check, Copy, X } from "lucide-react";
+import {
+  Share2,
+  Check,
+  Copy,
+  X,
+  MessageCircle,
+  Send,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Mail,
+  type LucideIcon
+} from "lucide-react";
 import { siteConfig } from "@/lib/config";
 
 interface ShareButtonProps {
@@ -172,37 +184,37 @@ export const ShareButton = ({ variant = "floating" }: ShareButtonProps) => {
                 <ShareLink
                   href={shareLinks.whatsapp}
                   label="WhatsApp"
-                  icon="💬"
+                  icon={MessageCircle}
                   color="bg-green-500"
                 />
                 <ShareLink
                   href={shareLinks.telegram}
                   label="Telegram"
-                  icon="✈️"
+                  icon={Send}
                   color="bg-blue-500"
                 />
                 <ShareLink
                   href={shareLinks.facebook}
                   label="Facebook"
-                  icon="📘"
+                  icon={Facebook}
                   color="bg-blue-600"
                 />
                 <ShareLink
                   href={shareLinks.twitter}
                   label="Twitter"
-                  icon="🐦"
+                  icon={Twitter}
                   color="bg-sky-500"
                 />
                 <ShareLink
                   href={shareLinks.linkedin}
                   label="LinkedIn"
-                  icon="💼"
+                  icon={Linkedin}
                   color="bg-blue-700"
                 />
                 <ShareLink
                   href={shareLinks.email}
                   label="E-Mail"
-                  icon="✉️"
+                  icon={Mail}
                   color="bg-barber-grey-600"
                 />
               </div>
@@ -217,11 +229,11 @@ export const ShareButton = ({ variant = "floating" }: ShareButtonProps) => {
 interface ShareLinkProps {
   href: string;
   label: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
 }
 
-const ShareLink = ({ href, label, icon, color }: ShareLinkProps) => (
+const ShareLink = ({ href, label, icon: Icon, color }: ShareLinkProps) => (
   <motion.a
     href={href}
     target="_blank"
@@ -230,7 +242,7 @@ const ShareLink = ({ href, label, icon, color }: ShareLinkProps) => (
     whileTap={{ scale: 0.95 }}
     className={`flex flex-col items-center justify-center gap-2 rounded-xl ${color} p-4 text-white shadow-md transition-shadow hover:shadow-lg`}
   >
-    <span className="text-2xl">{icon}</span>
+    <Icon size={24} strokeWidth={2} />
     <span className="text-xs font-semibold">{label}</span>
   </motion.a>
 );

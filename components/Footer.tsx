@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Mail } from "lucide-react";
-import { OneTrustSettingsButton } from "./OneTrust";
+import { KlaroCookieSettingsButton } from "./KlaroCookieConsent";
 
 export const Footer = () => {
   const socialLinks = [
@@ -67,12 +67,12 @@ export const Footer = () => {
           Datenschutz
         </a>
         <span className="text-barber-grey-300">•</span>
-        <OneTrustSettingsButton />
+        <KlaroCookieSettingsButton />
       </div>
 
       {/* Copyright */}
       <p className="text-xs text-barber-grey-400">
-        © {new Date().getFullYear()} KEINFRISEUR. Alle Rechte vorbehalten.
+        © {new Date().getFullYear()} Barber Dario. Alle Rechte vorbehalten.
       </p>
     </motion.footer>
   );

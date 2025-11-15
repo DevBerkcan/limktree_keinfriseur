@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Klaro Cookie Consent CSS */
+@import url('https://cdn.jsdelivr.net/npm/klaro@0.7.18/dist/klaro.min.css');
+
 @layer base {
   :root {
     --barber-red: #dc2626;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { hasConsent, oneTrustConfig } from "@/lib/config";
+import { hasKlaroConsent } from "@/components/KlaroCookieConsent";
 
 /**
  * Analytics event payload structure
@@ -99,7 +99,7 @@ const getDeviceInfo = () => {
 };
 
 /**
- * Main analytics hook mit OneTrust Integration
+ * Main analytics hook mit Klaro Cookie Consent Integration
  *
  * Usage:
  * ```tsx
@@ -116,23 +116,23 @@ export const useAnalytics = () => {
   const [hasAnalyticsConsent, setHasAnalyticsConsent] = useState(false);
 
   /**
-   * Prüfe OneTrust Consent Status
+   * Prüfe Klaro Consent Status
    */
   useEffect(() => {
     const checkConsent = () => {
-      const consent = hasConsent(oneTrustConfig.categories.performance);
+      const consent = hasKlaroConsent("analytics");
       setHasAnalyticsConsent(consent);
     };
 
-    // Initial check
-    checkConsent();
+    // Initial check (verzögert, damit Klaro Zeit hat zu laden)
+    setTimeout(checkConsent, 100);
 
-    // Listen for consent changes
+    // Listen for Klaro consent changes
     if (typeof window !== "undefined") {
-      window.addEventListener("onetrust-consent-updated", checkConsent);
+      window.addEventListener("klaro-analytics-consent", checkConsent);
 
       return () => {
-        window.removeEventListener("onetrust-consent-updated", checkConsent);
+        window.removeEventListener("klaro-analytics-consent", checkConsent);
       };
     }
   }, []);

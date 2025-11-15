@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
-import { OneTrust } from "@/components/OneTrust";
-import { oneTrustConfig } from "@/lib/config";
+import { KlaroCookieConsent } from "@/components/KlaroCookieConsent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -52,12 +51,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <head>
-        {/* OneTrust Cookie Consent */}
-        <OneTrust domainId={oneTrustConfig.domainId} />
-      </head>
       <body className={inter.className}>
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          {/* Klaro Cookie Consent - Open Source & Kostenlos */}
+          <KlaroCookieConsent />
+          {children}
+        </NextUIProvider>
       </body>
     </html>
   );
