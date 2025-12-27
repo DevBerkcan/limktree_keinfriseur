@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { KlaroCookieConsent } from "@/components/KlaroCookieConsent";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { TrackingProvider } from "@/components/analytics/TrackingProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -52,10 +54,13 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body className={inter.className}>
+        <GoogleAnalytics />
         <NextUIProvider>
-          {/* Klaro Cookie Consent - Open Source & Kostenlos */}
-          <KlaroCookieConsent />
-          {children}
+          <TrackingProvider>
+            {/* Klaro Cookie Consent - Open Source & Kostenlos */}
+            <KlaroCookieConsent />
+            {children}
+          </TrackingProvider>
         </NextUIProvider>
       </body>
     </html>

@@ -18,12 +18,20 @@ import {
   type TimeSlot,
   type CustomerInfo,
 } from "@/lib/api/booking";
+import { BookingEvents, getTrackingData } from "@/lib/tracking";
 
 export default function BookingPage() {
   const router = useRouter();
 
   // Step Management
   const [currentStep, setCurrentStep] = useState(1);
+
+  // Track step changes
+  useEffect(() => {
+    if (currentStep === 3) {
+      BookingEvents.customerDataEntered();
+    }
+  }, [currentStep]);
 
   // Services
   const [services, setServices] = useState<Service[]>([]);
@@ -72,6 +80,8 @@ export default function BookingPage() {
     try {
       const data = await getAvailability(selectedService.id, date);
       setAvailableSlots(data.availableSlots);
+      // Track date selection
+      BookingEvents.dateSelected(date);
     } catch (err) {
       setError("Fehler beim Laden der Verfügbarkeit");
       console.error(err);
@@ -83,6 +93,15 @@ export default function BookingPage() {
   // Handle service selection
   const handleServiceSelect = (service: Service) => {
     setSelectedService(service);
+    // Track service selection
+    BookingEvents.serviceSelected(service.name, service.price);
+  };
+
+  // Handle time selection (mit Tracking)
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+    // Track time selection
+    BookingEvents.timeSlotSelected(time);
   };
 
   // Handle booking submission
@@ -101,12 +120,25 @@ export default function BookingPage() {
     setError(null);
 
     try {
+      // Hole Tracking-Daten (UTM-Parameter, Referrer)
+      const trackingData = getTrackingData();
+
       const booking = await createBooking({
         serviceId: selectedService.id,
         bookingDate: selectedDate,
         startTime: selectedTime,
         customer: customerInfo,
+        // Tracking-Daten mitschicken
+        ...trackingData,
       });
+
+      // Track erfolgreiche Buchung
+      BookingEvents.bookingCompleted(
+        booking.bookingNumber,
+        selectedService.name,
+        selectedService.price,
+        trackingData
+      );
 
       // Redirect to confirmation page
       router.push(`/booking/confirmation/${booking.id}`);
@@ -215,7 +247,7 @@ export default function BookingPage() {
                   selectedTime={selectedTime}
                   availableSlots={availableSlots}
                   onDateSelect={setSelectedDate}
-                  onTimeSelect={setSelectedTime}
+                  onTimeSelect={handleTimeSelect}
                   onLoadSlots={handleLoadSlots}
                   loading={loadingSlots}
                 />
