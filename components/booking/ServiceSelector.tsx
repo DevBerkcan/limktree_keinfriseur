@@ -43,51 +43,64 @@ export function ServiceSelector({ services, selectedService, onSelect }: Service
               `}
             >
               <CardBody className="p-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 p-3 bg-barber-red/10 rounded-xl">
-                    <Scissors className="text-barber-red" size={24} />
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 p-4 bg-gradient-to-br from-barber-red to-barber-red/80 rounded-2xl shadow-lg">
+                    <Scissors className="text-white" size={28} />
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg text-barber-black">
-                      {service.name}
-                    </h3>
-                    {service.description && (
-                      <p className="text-sm text-barber-grey-600 mt-1">
-                        {service.description}
-                      </p>
-                    )}
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="font-bold text-xl text-barber-black uppercase tracking-tight">
+                          {service.name}
+                        </h3>
+                        {service.description && (
+                          <p className="text-sm text-barber-grey-600 mt-2 leading-relaxed">
+                            {service.description}
+                          </p>
+                        )}
+                      </div>
 
-                    <div className="flex items-center gap-4 mt-3">
-                      <span className="flex items-center gap-1 text-sm text-barber-grey-500">
-                        <Clock size={16} />
-                        {service.durationMinutes} Min
-                      </span>
-                      <span className="text-lg font-bold text-barber-red">
-                        ab {service.price.toFixed(2)} EUR
-                      </span>
+                      {selectedService?.id === service.id && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+                        >
+                          <svg
+                            className="w-5 h-5 text-white"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="3"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        </motion.div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-barber-grey-200">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-barber-grey-100 rounded-lg">
+                        <Clock size={18} className="text-barber-grey-600" />
+                        <span className="text-sm font-semibold text-barber-grey-700">
+                          {service.durationMinutes} Min
+                        </span>
+                      </div>
+
+                      <div className="text-right">
+                        <div className="text-xs text-barber-grey-500 uppercase tracking-wide mb-1">
+                          Preis ab
+                        </div>
+                        <div className="text-2xl font-black text-barber-red">
+                          {service.price.toFixed(2)}
+                          <span className="text-base font-semibold ml-1">EUR</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  {selectedService?.id === service.id && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="flex-shrink-0 w-6 h-6 bg-barber-red rounded-full flex items-center justify-center"
-                    >
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </motion.div>
-                  )}
                 </div>
               </CardBody>
             </Card>
