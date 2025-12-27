@@ -42,20 +42,20 @@ export function ServiceSelector({ services, selectedService, onSelect }: Service
                 }
               `}
             >
-              <CardBody className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-4 bg-gradient-to-br from-barber-red to-barber-red/80 rounded-2xl shadow-lg">
-                    <Scissors className="text-white" size={28} />
+              <CardBody className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row items-start gap-4">
+                  <div className="flex-shrink-0 p-3 sm:p-4 bg-gradient-to-br from-barber-red to-barber-red/80 rounded-2xl shadow-lg">
+                    <Scissors className="text-white" size={24} />
                   </div>
 
-                  <div className="flex-1">
+                  <div className="flex-1 w-full">
                     <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-bold text-xl text-barber-black uppercase tracking-tight">
+                      <div className="flex-1 pr-2">
+                        <h3 className="font-bold text-lg sm:text-xl text-barber-black uppercase tracking-tight">
                           {service.name}
                         </h3>
                         {service.description && (
-                          <p className="text-sm text-barber-grey-600 mt-2 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-barber-grey-600 mt-1 sm:mt-2 leading-relaxed line-clamp-2">
                             {service.description}
                           </p>
                         )}
@@ -65,10 +65,10 @@ export function ServiceSelector({ services, selectedService, onSelect }: Service
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+                          className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg"
                         >
                           <svg
-                            className="w-5 h-5 text-white"
+                            className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                             fill="none"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -82,21 +82,21 @@ export function ServiceSelector({ services, selectedService, onSelect }: Service
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-barber-grey-200">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-barber-grey-100 rounded-lg">
-                        <Clock size={18} className="text-barber-grey-600" />
-                        <span className="text-sm font-semibold text-barber-grey-700">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-barber-grey-200">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-barber-grey-100 rounded-lg w-fit">
+                        <Clock size={16} className="text-barber-grey-600" />
+                        <span className="text-xs sm:text-sm font-semibold text-barber-grey-700">
                           {service.durationMinutes} Min
                         </span>
                       </div>
 
-                      <div className="text-right">
+                      <div className="text-left sm:text-right">
                         <div className="text-xs text-barber-grey-500 uppercase tracking-wide mb-1">
                           Preis ab
                         </div>
-                        <div className="text-2xl font-black text-barber-red">
+                        <div className="text-xl sm:text-2xl font-black text-barber-red">
                           {service.price.toFixed(2)}
-                          <span className="text-base font-semibold ml-1">EUR</span>
+                          <span className="text-sm sm:text-base font-semibold ml-1">EUR</span>
                         </div>
                       </div>
                     </div>
