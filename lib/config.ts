@@ -26,7 +26,7 @@ export const profileConfig = {
 export const socialLinks: LinkConfig[] = [
   {
     label: "Online buchen",
-    href: "https://booking.termin2go.com/#!/barber-dario/services",
+    href: "/booking",
     icon: Calendar,
     variant: "primary",
   },
