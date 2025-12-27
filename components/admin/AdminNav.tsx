@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Calendar, Clock, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, Clock, BarChart3, LogOut } from "lucide-react";
 
 export function AdminNav() {
   const pathname = usePathname();
@@ -11,6 +11,7 @@ export function AdminNav() {
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/admin/today", label: "Heute Timeline", icon: Clock },
     { href: "/admin/bookings", label: "Buchungen", icon: Calendar },
+    { href: "/admin/tracking", label: "Tracking", icon: BarChart3 },
   ];
 
   const handleLogout = () => {

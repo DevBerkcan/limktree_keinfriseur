@@ -145,3 +145,48 @@ export async function updateBookingStatus(
 
   return response.json();
 }
+
+// Tracking Statistics Types
+export interface TrackingStatistics {
+  totalBookings: number;
+  bookingsWithTracking: number;
+  utmSources: SourceStatistic[];
+  utmMediums: SourceStatistic[];
+  utmCampaigns: SourceStatistic[];
+  topReferrers: ReferrerStatistic[];
+  totalRevenue: number;
+  averageBookingValue: number;
+}
+
+export interface SourceStatistic {
+  name: string;
+  bookingCount: number;
+  revenue: number;
+  percentage: number;
+}
+
+export interface ReferrerStatistic {
+  referrer: string;
+  count: number;
+}
+
+// Get Tracking Statistics
+export async function getTrackingStatistics(
+  fromDate?: string,
+  toDate?: string
+): Promise<TrackingStatistics> {
+  const params = new URLSearchParams();
+  if (fromDate) params.append("fromDate", fromDate);
+  if (toDate) params.append("toDate", toDate);
+
+  const queryString = params.toString();
+  const url = `${API_BASE_URL}/admin/tracking${queryString ? `?${queryString}` : ""}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Fehler beim Laden der Tracking-Statistiken");
+  }
+
+  return response.json();
+}

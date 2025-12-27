@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Scissors } from "lucide-react";
+import Image from "next/image";
 
 export const ProfileCard = () => {
   return (
@@ -70,9 +71,16 @@ export const ProfileCard = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-        className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-barber-red to-barber-darkRed shadow-lg ring-4 ring-barber-white"
+        className="mx-auto mb-6 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full shadow-lg ring-4 ring-barber-white"
       >
-        <span className="text-3xl font-bold text-barber-white">BD</span>
+        <Image
+          src="/logo.jpg"
+          alt="Barber Dario Logo"
+          width={96}
+          height={96}
+          className="h-full w-full object-cover"
+          priority
+        />
       </motion.div>
 
       {/* Salon Name */}
