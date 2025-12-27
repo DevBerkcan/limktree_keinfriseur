@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@nextui-org/button";
-import { ChevronLeft, Check } from "lucide-react";
+import { ChevronLeft, Check, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { ServiceSelector } from "@/components/booking/ServiceSelector";
 import { DateTimePicker } from "@/components/booking/DateTimePicker";
@@ -171,6 +172,15 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-barber-cream via-barber-grey-50 to-barber-white">
       <div className="max-w-3xl mx-auto px-4 py-12">
+        {/* Back to Home Button */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-barber-grey-600 hover:text-barber-red transition-colors mb-6"
+        >
+          <Home size={20} />
+          <span>Zurück zur Startseite</span>
+        </Link>
+
         {/* Progress Stepper */}
         <div className="mb-8">
           <div className="flex justify-center items-center gap-4">

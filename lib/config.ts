@@ -5,6 +5,7 @@ import {
   MapPin,
   MessageCircle,
   Video,
+  Mail,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,6 +47,12 @@ export const socialLinks: LinkConfig[] = [
     label: "Route zu uns (Google Maps)",
     href: "https://www.google.com/maps/dir/?api=1&destination=Berliner+Allee+43,+40212+Düsseldorf",
     icon: MapPin,
+    variant: "secondary",
+  },
+  {
+    label: "WhatsApp schreiben",
+    href: "https://wa.me/4915735985449",
+    icon: MessageCircle,
     variant: "secondary",
   },
 ];
