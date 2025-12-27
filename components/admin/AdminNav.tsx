@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Calendar, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, Clock, LogOut } from "lucide-react";
 
 export function AdminNav() {
   const pathname = usePathname();
 
   const navItems = [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/today", label: "Heute Timeline", icon: Clock },
     { href: "/admin/bookings", label: "Buchungen", icon: Calendar },
   ];
 
