@@ -5,7 +5,7 @@ import { Card, CardBody } from "@nextui-org/card";
 import { Chip } from "@nextui-org/chip";
 import { Spinner } from "@nextui-org/spinner";
 import { Calendar, Clock, User, Phone, Mail, Scissors } from "lucide-react";
-import { getDashboardOverview, type BookingListItem } from "@/lib/api/admin";
+import { getDashboard, type BookingListItem } from "@/lib/api/admin";
 
 export default function TodayTimelinePage() {
   const [bookings, setBookings] = useState<BookingListItem[]>([]);
@@ -25,9 +25,8 @@ export default function TodayTimelinePage() {
 
   async function loadTodayBookings() {
     try {
-      const today = new Date().toISOString().split('T')[0];
-      const overview = await getDashboardOverview(today);
-      setBookings(overview.today.bookings);
+      const dashboard = await getDashboard();
+      setBookings(dashboard.today.bookings);
     } catch (error) {
       console.error("Error loading bookings:", error);
     } finally {
