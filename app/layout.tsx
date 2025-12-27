@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { KlaroCookieConsent } from "@/components/KlaroCookieConsent";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
@@ -56,11 +57,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <GoogleAnalytics />
         <NextUIProvider>
-          <TrackingProvider>
-            {/* Klaro Cookie Consent - Open Source & Kostenlos */}
-            <KlaroCookieConsent />
-            {children}
-          </TrackingProvider>
+          <Suspense fallback={null}>
+            <TrackingProvider>
+              {/* Klaro Cookie Consent - Open Source & Kostenlos */}
+              <KlaroCookieConsent />
+              {children}
+            </TrackingProvider>
+          </Suspense>
         </NextUIProvider>
       </body>
     </html>
