@@ -103,7 +103,7 @@ export default function MyBookingsPage() {
         {/* Search Form */}
         <Card className="mb-8">
           <CardBody className="p-6">
-            <form onPress={handleSearch} className="flex gap-4">
+            <form onSubmit={handleSearch} className="flex gap-4">
               <Input
                 type="email"
                 placeholder="deine-email@example.com"
@@ -122,7 +122,6 @@ export default function MyBookingsPage() {
                 className="bg-barber-red text-white font-semibold px-8"
                 size="lg"
                 isLoading={loading}
-                onPress={handleSearch}
               >
                 Suchen
               </Button>
