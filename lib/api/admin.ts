@@ -190,3 +190,73 @@ export async function getTrackingStatistics(
 
   return response.json();
 }
+
+// Blocked Time Slots Types
+export interface BlockedTimeSlot {
+  id: string;
+  blockDate: string;
+  startTime: string;
+  endTime: string;
+  reason?: string;
+  createdAt: string;
+}
+
+export interface CreateBlockedSlot {
+  blockDate: string;
+  startTime: string;
+  endTime: string;
+  reason?: string;
+}
+
+// Get Blocked Time Slots
+export async function getBlockedSlots(
+  fromDate?: string,
+  toDate?: string
+): Promise<BlockedTimeSlot[]> {
+  const params = new URLSearchParams();
+  if (fromDate) params.append("fromDate", fromDate);
+  if (toDate) params.append("toDate", toDate);
+
+  const queryString = params.toString();
+  const url = `${API_BASE_URL}/admin/blocked-slots${queryString ? `?${queryString}` : ""}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Fehler beim Laden der blockierten Zeitslots");
+  }
+
+  return response.json();
+}
+
+// Create Blocked Time Slot
+export async function createBlockedSlot(
+  data: CreateBlockedSlot
+): Promise<BlockedTimeSlot> {
+  const response = await fetch(`${API_BASE_URL}/admin/blocked-slots`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Fehler beim Erstellen des blockierten Zeitslots");
+  }
+
+  return response.json();
+}
+
+// Delete Blocked Time Slot
+export async function deleteBlockedSlot(id: string): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/admin/blocked-slots/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Fehler beim Löschen des blockierten Zeitslots");
+  }
+}
